@@ -1,0 +1,7 @@
+{
+  "name": "RAY - راي",
+  "description": "The complete digital platform for Egyptian merchants and customers. Marketplace, SaaS Dashboard, and POS system.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
