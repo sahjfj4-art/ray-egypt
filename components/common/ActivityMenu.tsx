@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import { useTranslation, useGlobalSettings } from './GlobalSettings';
+import { useTranslation, useGlobalSettingsSafe } from './GlobalSettings';
 import { ACTIVITY_GROUPS, getActivitiesByGroup, ACTIVITIES, ActivityGroupData } from '../../types/activities';
 
 interface ActivityMenuProps {
@@ -15,7 +15,7 @@ interface ActivityMenuProps {
 
 const ActivityMenu: React.FC<ActivityMenuProps> = ({ onActivitySelect, selectedActivityId }) => {
   const t = useTranslation();
-  const { currentLanguage } = useGlobalSettings();
+  const { currentLanguage } = useGlobalSettingsSafe();
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set(['food']));
   const [searchQuery, setSearchQuery] = useState('');
 

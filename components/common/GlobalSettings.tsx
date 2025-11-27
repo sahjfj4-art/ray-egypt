@@ -22,6 +22,25 @@ export const useGlobalSettings = () => {
   return context;
 };
 
+// Safe version that doesn't throw errors
+export const useGlobalSettingsSafe = () => {
+  const context = useContext(GlobalSettingsContext);
+  if (!context) {
+    // Return default values instead of throwing error
+    return {
+      currentLanguage: 'ar' as const,
+      isDarkMode: false,
+      deviceType: 'desktop' as const,
+      isMobileMenuOpen: false,
+      toggleLanguage: () => {},
+      toggleDarkMode: () => {},
+      toggleMobileMenu: () => {},
+      setDeviceType: () => {}
+    };
+  }
+  return context;
+};
+
 export const GlobalSettingsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentLanguage, setCurrentLanguage] = useState<'ar' | 'en'>('ar');
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -347,49 +366,91 @@ export const translations = {
 
 // دالة للحصول على الترجمة
 export const useTranslation = () => {
-  const { currentLanguage } = useGlobalSettings();
-  return translations[currentLanguage];
+  try {
+    const { currentLanguage } = useGlobalSettingsSafe();
+    return translations[currentLanguage];
+  } catch (error) {
+    // Fallback to Arabic if GlobalSettingsProvider is not available
+    return translations.ar;
+  }
 };
 
 // دالة للتحقق من نوع الجهاز
 export const useResponsive = () => {
-  const { deviceType } = useGlobalSettings();
-  
-  return {
-    isMobile: deviceType === 'mobile',
-    isTablet: deviceType === 'tablet',
-    isDesktop: deviceType === 'desktop',
-    deviceType
-  };
+  try {
+    const { deviceType } = useGlobalSettingsSafe();
+    
+    return {
+      isMobile: deviceType === 'mobile',
+      isTablet: deviceType === 'tablet',
+      isDesktop: deviceType === 'desktop',
+      deviceType
+    };
+  } catch (error) {
+    // Fallback to desktop if GlobalSettingsProvider is not available
+    return {
+      isMobile: false,
+      isTablet: false,
+      isDesktop: true,
+      deviceType: 'desktop'
+    };
+  }
 };
 
 // دالة للتصميم المتجاوب
 export const useResponsiveClasses = () => {
-  const { deviceType } = useGlobalSettings();
-  
-  return {
-    container: deviceType === 'mobile' ? 'px-4' : deviceType === 'tablet' ? 'px-6' : 'px-8',
-    grid: deviceType === 'mobile' ? 'grid-cols-1' : deviceType === 'tablet' ? 'grid-cols-2' : 'grid-cols-3',
-    text: deviceType === 'mobile' ? 'text-sm' : deviceType === 'tablet' ? 'text-base' : 'text-lg',
-    button: deviceType === 'mobile' ? 'px-3 py-2 text-sm' : deviceType === 'tablet' ? 'px-4 py-3 text-base' : 'px-6 py-4 text-lg',
-    card: deviceType === 'mobile' ? 'p-3' : deviceType === 'tablet' ? 'p-4' : 'p-6'
-  };
+  try {
+    const { deviceType } = useGlobalSettingsSafe();
+    
+    return {
+      container: deviceType === 'mobile' ? 'px-4' : deviceType === 'tablet' ? 'px-6' : 'px-8',
+      grid: deviceType === 'mobile' ? 'grid-cols-1' : deviceType === 'tablet' ? 'grid-cols-2' : 'grid-cols-3',
+      text: deviceType === 'mobile' ? 'text-sm' : deviceType === 'tablet' ? 'text-base' : 'text-lg',
+      button: deviceType === 'mobile' ? 'px-3 py-2 text-sm' : deviceType === 'tablet' ? 'px-4 py-3 text-base' : 'px-6 py-4 text-lg',
+      card: deviceType === 'mobile' ? 'p-3' : deviceType === 'tablet' ? 'p-4' : 'p-6'
+    };
+  } catch (error) {
+    // Fallback to desktop classes if GlobalSettingsProvider is not available
+    return {
+      container: 'px-8',
+      grid: 'grid-cols-3',
+      text: 'text-lg',
+      button: 'px-6 py-4 text-lg',
+      card: 'p-6'
+    };
+  }
 };
 
 // دالة للألوان الديناميكية
 export const useThemeColors = () => {
-  const { isDarkMode } = useGlobalSettings();
-  
-  return {
-    background: isDarkMode ? 'bg-gray-900' : 'bg-white',
-    surface: isDarkMode ? 'bg-gray-800' : 'bg-gray-50',
-    text: isDarkMode ? 'text-white' : 'text-gray-900',
-    textSecondary: isDarkMode ? 'text-gray-300' : 'text-gray-600',
-    border: isDarkMode ? 'border-gray-700' : 'border-gray-200',
-    hover: isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100',
-    primary: 'bg-red-600 hover:bg-red-700',
-    success: 'bg-green-600 hover:bg-green-700',
-    warning: 'bg-yellow-600 hover:bg-yellow-700',
-    error: 'bg-red-600 hover:bg-red-700'
-  };
+  try {
+    const { isDarkMode } = useGlobalSettingsSafe();
+    
+    return {
+      background: isDarkMode ? 'bg-gray-900' : 'bg-white',
+      surface: isDarkMode ? 'bg-gray-800' : 'bg-gray-50',
+      text: isDarkMode ? 'text-white' : 'text-gray-900',
+      textSecondary: isDarkMode ? 'text-gray-300' : 'text-gray-600',
+      border: isDarkMode ? 'border-gray-700' : 'border-gray-200',
+      hover: isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100',
+      primary: 'bg-red-600 hover:bg-red-700',
+      success: 'bg-green-600 hover:bg-green-700',
+      warning: 'bg-yellow-600 hover:bg-yellow-700',
+      error: 'bg-red-600 hover:bg-red-700'
+    };
+  } catch (error) {
+    // Fallback to light mode if GlobalSettingsProvider is not available
+    return {
+      background: 'bg-white',
+      surface: 'bg-gray-50',
+      text: 'text-gray-900',
+      textSecondary: 'text-gray-600',
+      border: 'border-gray-200',
+      hover: 'hover:bg-gray-100',
+      primary: 'bg-red-600 hover:bg-red-700',
+      success: 'bg-green-600 hover:bg-green-700',
+      warning: 'bg-yellow-600 hover:bg-yellow-700',
+      error: 'bg-red-600 hover:bg-red-700'
+    };
+  }
 };
