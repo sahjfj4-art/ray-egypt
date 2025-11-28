@@ -6,6 +6,8 @@ import FAQView from './components/pages/FAQView';
 import BlogView from './components/pages/BlogView';
 import HelpView from './components/pages/HelpView';
 import PrivacyPolicyView from './components/pages/PrivacyPolicyView';
+import CareersView from './components/pages/CareersView';
+import RestaurantView from './components/pages/systems/RestaurantView';
 import { ViewState } from './types';
 import { BusinessType } from './components/dashboard/config';
 import { ThemeProvider } from './components/common/ThemeContext';
@@ -98,13 +100,32 @@ const App: React.FC = () => {
       {currentView === ViewState.PRIVACY_POLICY && <PrivacyPolicyView onPageNavigation={handlePageNavigation} />}
       {currentView === ViewState.TERMS && <PrivacyPolicyView onPageNavigation={handlePageNavigation} />}
       {currentView === ViewState.USAGE_POLICY && <PrivacyPolicyView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.CAREERS && <FAQView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.CAREERS && <CareersView onPageNavigation={handlePageNavigation} />}
       {currentView === ViewState.PARTNERS && <FAQView onPageNavigation={handlePageNavigation} />}
       {currentView === ViewState.DEVELOPMENT && <FAQView onPageNavigation={handlePageNavigation} />}
       {currentView === ViewState.JOIN_TEAM && <FAQView onPageNavigation={handlePageNavigation} />}
       {currentView === ViewState.TRAINING && <FAQView onPageNavigation={handlePageNavigation} />}
       {currentView === ViewState.MARKET && <Marketplace onMerchantClick={handleMerchantEntry} onAdminLogin={handleAdminLogin} onPageNavigation={handlePageNavigation} />}
       {currentView === ViewState.REFUND_POLICY && <FAQView onPageNavigation={handlePageNavigation} />}
+      {/* System Views */}
+      {currentView === ViewState.RESTAURANT && <RestaurantView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.RETAIL && <FAQView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.CLOTHING && <FAQView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.POS_SYSTEM && <FAQView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.INVENTORY && <FAQView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.LOGISTICS && <FAQView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.MOBILE_LAUNDRY && <FAQView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.HOME_SERVICES && <FAQView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.DRY_CLEANING && <FAQView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.DELIVERY && <FAQView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.MAINTENANCE && <FAQView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.CLEANING && <FAQView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.SUBSCRIPTIONS && <FAQView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.SALON && <FAQView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.NURSERY && <FAQView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.ACADEMY && <FAQView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.LEGAL && <FAQView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.RESORTS && <FAQView onPageNavigation={handlePageNavigation} />}
     </ThemeProvider>
   );
 };
