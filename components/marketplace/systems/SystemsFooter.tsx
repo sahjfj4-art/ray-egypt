@@ -11,9 +11,35 @@ const SystemsFooter: React.FC<SystemsFooterProps> = ({ onPageNavigation }) => {
 
   const handleSystemClick = (systemId: string) => {
     console.log('Navigating to system:', systemId);
-    // For now, redirect to marketplace with system selection
     if (onPageNavigation) {
-      onPageNavigation(ViewState.MARKETPLACE);
+      const systemMap: Record<string, ViewState> = {
+        'restaurant': ViewState.RESTAURANT,
+        'retail': ViewState.RETAIL,
+        'clothing': ViewState.CLOTHING,
+        'pos': ViewState.POS_SYSTEM,
+        'inventory': ViewState.INVENTORY,
+        'logistics': ViewState.LOGISTICS,
+        'mobileLaundry': ViewState.MOBILE_LAUNDRY,
+        'homeServices': ViewState.HOME_SERVICES,
+        'dryCleaning': ViewState.DRY_CLEANING,
+        'delivery': ViewState.DELIVERY,
+        'maintenance': ViewState.MAINTENANCE,
+        'cleaning': ViewState.CLEANING,
+        'subscriptions': ViewState.SUBSCRIPTIONS,
+        'salon': ViewState.SALON,
+        'nursery': ViewState.NURSERY,
+        'academy': ViewState.ACADEMY,
+        'legal': ViewState.LEGAL,
+        'resorts': ViewState.RESORTS
+      };
+      
+      const targetView = systemMap[systemId];
+      if (targetView) {
+        onPageNavigation(targetView);
+      } else {
+        // Fallback to marketplace if system page not found
+        onPageNavigation(ViewState.MARKETPLACE);
+      }
     }
   };
 
