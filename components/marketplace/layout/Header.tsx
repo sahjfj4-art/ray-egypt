@@ -19,11 +19,22 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ onMerchantClick, goHome, activeSystem, onCategorySelect, onNavigate, onAuth }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
   const { isDarkMode, toggleTheme } = useTheme();
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onNavigate('search');
+  };
+
+  const toggleCategory = (categoryId: string) => {
+    const newExpanded = new Set(expandedCategories);
+    if (newExpanded.has(categoryId)) {
+      newExpanded.delete(categoryId);
+    } else {
+      newExpanded.add(categoryId);
+    }
+    setExpandedCategories(newExpanded);
   };
 
   return (
@@ -117,7 +128,7 @@ const Header: React.FC<HeaderProps> = ({ onMerchantClick, goHome, activeSystem, 
                   <span className="hidden lg:inline">تسجيل الدخول</span>
                </button>
 
-               <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="md:hidden p-1.5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">
+               <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="lg:hidden p-1.5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg">
                  {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
                </button>
             </div>
@@ -173,7 +184,7 @@ const Header: React.FC<HeaderProps> = ({ onMerchantClick, goHome, activeSystem, 
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 absolute top-full w-full left-0 shadow-2xl py-4 px-4 flex flex-col gap-4 max-h-[80vh] overflow-y-auto z-50 animate-in slide-in-from-top-5">
+          <div className="lg:hidden bg-white dark:bg-gray-900 border-t border-gray-100 dark:border-gray-800 fixed top-[88px] md:top-[96px] w-full left-0 shadow-2xl py-4 px-4 flex flex-col gap-4 max-h-[70vh] overflow-y-auto z-[60] animate-in slide-in-from-top-5">
             <div className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-800 rounded-xl">
                <MapPin className="w-4 h-4 text-ray-blue dark:text-ray-gold" />
                <span className="text-sm font-bold text-gray-700 dark:text-gray-200">القاهرة، المعادي</span>
@@ -187,38 +198,43 @@ const Header: React.FC<HeaderProps> = ({ onMerchantClick, goHome, activeSystem, 
             <div className="space-y-2 mt-2">
               <p className="text-xs font-bold text-gray-400 mb-2">الأقسام</p>
               {allCategories.map(cat => (
-                <details key={cat.id} className="group bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden">
-                  <summary className="flex items-center justify-between p-3 cursor-pointer list-none font-bold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                <div key={cat.id} className="bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden">
+                  <button 
+                    onClick={() => toggleCategory(cat.id)}
+                    className="flex items-center justify-between p-3 cursor-pointer font-bold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 w-full"
+                  >
                     <div className="flex items-center gap-2">
                        <cat.icon className="w-5 h-5 text-ray-blue dark:text-ray-gold" />
                        {cat.name}
                     </div>
-                    <ChevronDown className="w-4 h-4 transition-transform group-open:rotate-180" />
-                  </summary>
-                  <div className="px-3 pb-3 pt-1 space-y-1 border-t border-gray-200/50 dark:border-gray-700">
-                    <button 
-                      onClick={() => {
-                        onCategorySelect(cat.id);
-                        setIsMenuOpen(false);
-                      }}
-                      className="block w-full text-right p-2 text-sm font-bold text-ray-blue dark:text-ray-gold bg-blue-50 dark:bg-gray-700 rounded-lg mb-2"
-                    >
-                      عرض الكل في {cat.name}
-                    </button>
-                    {cat.sub.map(sub => (
-                       <button 
-                         key={sub.id} 
-                         onClick={() => {
-                           onCategorySelect(cat.id);
-                           setIsMenuOpen(false);
-                         }}
-                         className="block w-full text-right p-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-600 rounded-lg hover:text-ray-blue transition-colors"
-                       >
-                         {sub.name}
-                       </button>
-                    ))}
-                  </div>
-                </details>
+                    <ChevronDown className={`w-4 h-4 transition-transform ${expandedCategories.has(cat.id) ? 'rotate-180' : ''}`} />
+                  </button>
+                  {expandedCategories.has(cat.id) && (
+                    <div className="px-3 pb-3 pt-1 space-y-1 border-t border-gray-200/50 dark:border-gray-700">
+                      <button 
+                        onClick={() => {
+                          onCategorySelect(cat.id);
+                          setIsMenuOpen(false);
+                        }}
+                        className="block w-full text-right p-2 text-sm font-bold text-ray-blue dark:text-ray-gold bg-blue-50 dark:bg-gray-700 rounded-lg mb-2"
+                      >
+                        عرض الكل في {cat.name}
+                      </button>
+                      {cat.sub.map(sub => (
+                         <button 
+                           key={sub.id} 
+                           onClick={() => {
+                             onCategorySelect(cat.id);
+                             setIsMenuOpen(false);
+                           }}
+                           className="block w-full text-right p-2 text-sm text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-600 rounded-lg hover:text-ray-blue transition-colors"
+                         >
+                           {sub.name}
+                         </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
               ))}
             </div>
             <button onClick={onMerchantClick} className="bg-ray-blue dark:bg-ray-gold text-white dark:text-black py-3 rounded-xl font-bold mt-2 shadow-lg flex items-center justify-center gap-2">

@@ -50,9 +50,9 @@ const RestaurantView: React.FC<RestaurantViewProps> = ({ onPageNavigation }) => 
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-orange-500 to-red-600 text-white py-20">
+      <div className="bg-gradient-to-r from-orange-500 to-red-600 dark:from-orange-600 dark:to-red-700 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-4 mb-4">
             <Utensils className="w-12 h-12" />
@@ -101,12 +101,12 @@ const RestaurantView: React.FC<RestaurantViewProps> = ({ onPageNavigation }) => 
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {features.map((feature, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg p-6 hover:shadow-xl transition">
-                <div className="bg-orange-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
-                  <feature.icon className="w-8 h-8 text-orange-600" />
+              <div key={index} className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 hover:shadow-xl transition">
+                <div className="bg-orange-100 dark:bg-orange-900 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                  <feature.icon className="w-8 h-8 text-orange-600 dark:text-orange-400" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <p className="text-gray-600 dark:text-gray-300">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -114,24 +114,24 @@ const RestaurantView: React.FC<RestaurantViewProps> = ({ onPageNavigation }) => 
       </div>
 
       {/* Modules Section */}
-      <div className="bg-white py-16">
+      <div className="bg-white dark:bg-gray-800 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-bold text-center mb-12">وحدات النظام</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {modules.map((module, index) => (
-              <div key={index} className="border rounded-lg p-4 hover:shadow-lg transition">
+              <div key={index} className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-lg transition">
                 <div className="flex justify-between items-center">
                   <h4 className="font-semibold">{module.name}</h4>
-                  <span className="text-orange-600 font-bold">{module.price}</span>
+                  <span className="text-orange-600 dark:text-orange-400 font-bold">{module.price}</span>
                 </div>
               </div>
             ))}
           </div>
           
           <div className="mt-8 text-center">
-            <div className="text-2xl font-bold text-orange-600 mb-2">السعر الكامل: 10,800 ج.م</div>
-            <p className="text-gray-600 mb-4">خصم 20% للدفع السنوي</p>
+            <div className="text-2xl font-bold text-orange-600 dark:text-orange-400 mb-2">السعر الكامل: 10,800 ج.م</div>
+            <p className="text-gray-600 dark:text-gray-300 mb-4">خصم 20% للدفع السنوي</p>
             <button className="bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-700 transition">
               اطلب النظام الكامل
             </button>
@@ -140,17 +140,17 @@ const RestaurantView: React.FC<RestaurantViewProps> = ({ onPageNavigation }) => 
       </div>
 
       {/* CTA Section */}
-      <div className="bg-gray-100 py-16">
+      <div className="bg-gray-100 dark:bg-gray-700 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-4">جرب النظام اليوم</h2>
-          <p className="text-xl text-gray-600 mb-8">14 يوماً تجربة مجانية بدون التزام</p>
+          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">14 يوماً تجربة مجانية بدون التزام</p>
           <div className="flex gap-4 justify-center">
             <button className="bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-700 transition">
               ابدأ التجربة المجانية
             </button>
             <button 
               onClick={() => onPageNavigation(ViewState.HELP)}
-              className="bg-white text-orange-600 border-2 border-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-orange-50 transition"
+              className="bg-white dark:bg-gray-800 text-orange-600 border-2 border-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-orange-50 dark:hover:bg-gray-700 transition"
             >
               تواصل مع المبيعات
             </button>
