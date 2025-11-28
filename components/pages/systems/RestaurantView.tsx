@@ -149,7 +149,7 @@ const RestaurantView: React.FC<RestaurantViewProps> = ({ onPageNavigation }) => 
               ابدأ التجربة المجانية
             </button>
             <button 
-              onClick={() => onPageNavigation(ViewState.CONTACT)}
+              onClick={() => onPageNavigation(ViewState.HELP)}
               className="bg-white text-orange-600 border-2 border-orange-600 px-8 py-3 rounded-lg font-semibold hover:bg-orange-50 transition"
             >
               تواصل مع المبيعات

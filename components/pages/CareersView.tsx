@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight, Users, Target, Award, MapPin, Clock } from 'lucide-react';
-import { ViewState } from '../../../types';
+import { ViewState } from '../../types';
 
 interface CareersViewProps {
   onPageNavigation: (view: ViewState) => void;
@@ -120,7 +120,7 @@ const CareersView: React.FC<CareersViewProps> = ({ onPageNavigation }) => {
               إرسال السيرة الذاتية
             </button>
             <button 
-              onClick={() => onPageNavigation(ViewState.CONTACT)}
+              onClick={() => onPageNavigation(ViewState.HELP)}
               className="bg-white text-blue-600 border-2 border-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition"
             >
               تواصل معنا
