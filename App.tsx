@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import Marketplace from './components/Marketplace';
 import Dashboard from './components/Dashboard';
 import DashboardNew from './components/dashboard/Dashboard';
@@ -139,6 +140,7 @@ const App: React.FC = () => {
       {currentView === ViewState.RESORTS && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
       {currentView === ViewState.RAY_EGYPT && <RayEgyptSystem />}
     </ThemeProvider>
+    <SpeedInsights />
   );
 };
 
