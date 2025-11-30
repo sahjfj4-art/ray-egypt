@@ -1,0 +1,252 @@
+// Ray Egypt Bootstrap Variables
+
+// Brand Colors
+$ray-primary: #0d6efd;
+$ray-secondary: #6c757d;
+$ray-success: #198754;
+$ray-info: #0dcaf0;
+$ray-warning: #ffc107;
+$ray-danger: #dc3545;
+$ray-light: #f8f9fa;
+$ray-dark: #212529;
+
+// Custom Brand Colors
+$ray-yellow: #ffc107;
+$ray-orange: #fd7e14;
+$ray-blue: #0d6efd;
+$ray-green: #198754;
+$ray-red: #dc3545;
+$ray-purple: #6f42c1;
+$ray-pink: #d63384;
+$ray-teal: #20c997;
+$ray-cyan: #0dcaf0;
+
+// Gradients
+$ray-gradient-primary: linear-gradient(135deg, $ray-primary 0%, #0056b3 100%);
+$ray-gradient-success: linear-gradient(135deg, $ray-success 0%, #146c43 100%);
+$ray-gradient-warning: linear-gradient(135deg, $ray-warning 0%, #ff9800 100%);
+$ray-gradient-danger: linear-gradient(135deg, $ray-danger 0%, #b02a37 100%);
+$ray-gradient-info: linear-gradient(135deg, $ray-info 0%, #0b5ed7 100%);
+$ray-gradient-brand: linear-gradient(135deg, $ray-yellow 0%, $ray-orange 100%);
+
+// Typography
+$ray-font-family: "Tajawal", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$ray-font-size-xs: 0.75rem;
+$ray-font-size-sm: 0.875rem;
+$ray-font-size-base: 1rem;
+$ray-font-size-lg: 1.125rem;
+$ray-font-size-xl: 1.25rem;
+$ray-font-size-2xl: 1.5rem;
+$ray-font-size-3xl: 1.875rem;
+$ray-font-size-4xl: 2.25rem;
+$ray-font-size-5xl: 3rem;
+
+// Font Weights
+$ray-font-weight-light: 300;
+$ray-font-weight-normal: 400;
+$ray-font-weight-medium: 500;
+$ray-font-weight-semibold: 600;
+$ray-font-weight-bold: 700;
+$ray-font-weight-extrabold: 800;
+
+// Line Heights
+$ray-line-height-tight: 1.25;
+$ray-line-height-normal: 1.5;
+$ray-line-height-relaxed: 1.625;
+$ray-line-height-loose: 2;
+
+// Spacing
+$ray-spacing-0: 0;
+$ray-spacing-1: 0.25rem;   // 4px
+$ray-spacing-2: 0.5rem;    // 8px
+$ray-spacing-3: 0.75rem;   // 12px
+$ray-spacing-4: 1rem;      // 16px
+$ray-spacing-5: 1.25rem;   // 20px
+$ray-spacing-6: 1.5rem;    // 24px
+$ray-spacing-8: 2rem;      // 32px
+$ray-spacing-10: 2.5rem;   // 40px
+$ray-spacing-12: 3rem;     // 48px
+$ray-spacing-16: 4rem;     // 64px
+$ray-spacing-20: 5rem;     // 80px
+$ray-spacing-24: 6rem;     // 96px
+$ray-spacing-32: 8rem;     // 128px
+
+// Border Radius
+$ray-border-radius-none: 0;
+$ray-border-radius-sm: 0.125rem;   // 2px
+$ray-border-radius: 0.25rem;       // 4px
+$ray-border-radius-md: 0.375rem;    // 6px
+$ray-border-radius-lg: 0.5rem;      // 8px
+$ray-border-radius-xl: 0.75rem;    // 12px
+$ray-border-radius-2xl: 1rem;       // 16px
+$ray-border-radius-full: 9999px;
+
+// Shadows
+$ray-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+$ray-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+$ray-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+$ray-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+$ray-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+$ray-shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+$ray-shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+
+// Transitions
+$ray-transition-duration-75: 75ms;
+$ray-transition-duration-100: 100ms;
+$ray-transition-duration-150: 150ms;
+$ray-transition-duration-200: 200ms;
+$ray-transition-duration-300: 300ms;
+$ray-transition-duration-500: 500ms;
+$ray-transition-duration-700: 700ms;
+$ray-transition-duration-1000: 1000ms;
+
+$ray-transition-timing-linear: linear;
+$ray-transition-timing-ease: ease;
+$ray-transition-timing-ease-in: ease-in;
+$ray-transition-timing-ease-out: ease-out;
+$ray-transition-timing-ease-in-out: ease-in-out;
+
+$ray-transition-all: all $ray-transition-duration-150 $ray-transition-timing-ease-in-out;
+$ray-transition-transform: transform $ray-transition-duration-150 $ray-transition-timing-ease-in-out;
+$ray-transition-opacity: opacity $ray-transition-duration-150 $ray-transition-timing-ease-in-out;
+$ray-transition-colors: color $ray-transition-duration-150 $ray-transition-timing-ease-in-out, background-color $ray-transition-duration-150 $ray-transition-timing-ease-in-out, border-color $ray-transition-duration-150 $ray-transition-timing-ease-in-out;
+
+// Z-Index
+$ray-z-index-dropdown: 1000;
+$ray-z-index-sticky: 1020;
+$ray-z-index-fixed: 1030;
+$ray-z-index-modal-backdrop: 1040;
+$ray-z-index-modal: 1050;
+$ray-z-index-popover: 1060;
+$ray-z-index-tooltip: 1070;
+$ray-z-index-toast: 1080;
+
+// Breakpoints
+$ray-breakpoint-sm: 576px;
+$ray-breakpoint-md: 768px;
+$ray-breakpoint-lg: 992px;
+$ray-breakpoint-xl: 1200px;
+$ray-breakpoint-2xl: 1400px;
+
+// Container Max Widths
+$ray-container-max-width-sm: 540px;
+$ray-container-max-width-md: 720px;
+$ray-container-max-width-lg: 960px;
+$ray-container-max-width-xl: 1140px;
+$ray-container-max-width-2xl: 1320px;
+
+// Grid Columns
+$ray-grid-columns: 12;
+$ray-grid-gutter-width: 1.5rem;
+$ray-grid-gutter-width-sm: 1rem;
+$ray-grid-gutter-width-lg: 2rem;
+
+// Tables
+$ray-table-cell-padding: 0.75rem;
+$ray-table-cell-padding-sm: 0.5rem;
+$ray-table-cell-padding-lg: 1rem;
+
+// Forms
+$ray-input-padding-y: 0.5rem;
+$ray-input-padding-x: 0.75rem;
+$ray-input-font-size: $ray-font-size-base;
+$ray-input-line-height: $ray-line-height-normal;
+
+$ray-input-bg: #fff;
+$ray-input-color: #212529;
+$ray-input-border-color: #ced4da;
+$ray-input-border-width: 1px;
+$ray-input-border-radius: $ray-border-radius;
+
+$ray-input-focus-bg: $ray-input-bg;
+$ray-input-focus-color: $ray-input-color;
+$ray-input-focus-border-color: #86b7fe;
+$ray-input-focus-width: 0.25rem;
+$ray-input-focus-box-shadow: 0 0 0 $ray-input-focus-width rgba(13, 110, 253, 0.25);
+
+// Buttons
+$ray-btn-padding-y: 0.5rem;
+$ray-btn-padding-x: 1rem;
+$ray-btn-font-size: $ray-font-size-base;
+$ray-btn-line-height: $ray-line-height-normal;
+
+$ray-btn-border-width: 1px;
+$ray-btn-border-radius: $ray-border-radius;
+$ray-btn-box-shadow: $ray-shadow-sm;
+
+$ray-btn-hover-bg-shade-amount: 15%;
+$ray-btn-hover-bg-tint-amount: 15%;
+$ray-btn-hover-border-shade-amount: 20%;
+$ray-btn-hover-border-tint-amount: 10%;
+$ray-btn-active-bg-shade-amount: 20%;
+$ray-btn-active-bg-tint-amount: 20%;
+
+// Cards
+$ray-card-spacer-y: 1rem;
+$ray-card-spacer-x: 1rem;
+$ray-card-title-spacer-y: 0.5rem;
+$ray-card-border-width: 1px;
+$ray-card-border-color: rgba(0, 0, 0, 0.125);
+$ray-card-border-radius: $ray-border-radius-lg;
+$ray-card-box-shadow: $ray-shadow-sm;
+$ray-card-inner-border-radius: calc(#{$ray-card-border-radius} - #{$ray-card-border-width});
+
+// Modals
+$ray-modal-content-color: null;
+$ray-modal-content-bg: #fff;
+$ray-modal-content-border-color: rgba(0, 0, 0, 0.2);
+$ray-modal-content-border-width: 1px;
+$ray-modal-content-border-radius: $ray-border-radius-lg;
+$ray-modal-content-inner-border-radius: calc(#{$ray-modal-content-border-radius} - #{$ray-modal-content-border-width});
+$ray-modal-content-box-shadow-xs: $ray-shadow-sm;
+$ray-modal-content-box-shadow-sm-up: $ray-shadow-lg;
+
+$ray-modal-backdrop-bg: #000;
+$ray-modal-backdrop-opacity: 0.5;
+$ray-modal-header-border-color: $ray-card-border-color;
+$ray-modal-footer-border-color: $ray-card-border-color;
+$ray-modal-header-border-width: $ray-card-border-width;
+$ray-modal-footer-border-width: $ray-card-border-width;
+$ray-modal-header-padding-y: 1rem;
+$ray-modal-header-padding-x: 1rem;
+$ray-modal-header-padding: $ray-modal-header-padding-y $ray-modal-header-padding-x;
+$ray-modal-inner-border-radius: subtract($ray-modal-content-border-radius, $ray-modal-content-border-width);
+
+// Alerts
+$ray-alert-padding-y: 1rem;
+$ray-alert-padding-x: 1rem;
+$ray-alert-margin-bottom: 1rem;
+$ray-alert-border-radius: $ray-border-radius;
+$ray-alert-link-font-weight: $ray-font-weight-bold;
+$ray-alert-border-width: 1px;
+$ray-alert-dismissible-padding-r: 3rem;
+
+// Tooltips
+$ray-tooltip-font-size: $ray-font-size-sm;
+$ray-tooltip-max-width: 200px;
+$ray-tooltip-color: #fff;
+$ray-tooltip-bg: #000;
+$ray-tooltip-border-radius: $ray-border-radius;
+$ray-tooltip-opacity: 0.9;
+$ray-tooltip-padding-y: 0.5rem;
+$ray-tooltip-padding-x: 0.75rem;
+$ray-tooltip-margin: 0;
+
+// Popovers
+$ray-popover-font-size: $ray-font-size-sm;
+$ray-popover-bg: #fff;
+$ray-popover-max-width: 276px;
+$ray-popover-border-width: 1px;
+$ray-popover-border-color: rgba(0, 0, 0, 0.2);
+$ray-popover-border-radius: $ray-border-radius-lg;
+$ray-popover-inner-border-radius: calc(#{$ray-popover-border-radius} - #{$ray-popover-border-width});
+$ray-popover-box-shadow: $ray-shadow-lg;
+$ray-popover-header-bg: #f0f0f0;
+$ray-popover-header-padding-y: 0.5rem;
+$ray-popover-header-padding-x: 1rem;
+$ray-popover-body-color: $ray-input-color;
+$ray-popover-body-padding-y: 1rem;
+$ray-popover-body-padding-x: 1rem;
+$ray-popover-arrow-width: 1rem;
+$ray-popover-arrow-height: 0.5rem;
+$ray-popover-arrow-border-color: transparent;

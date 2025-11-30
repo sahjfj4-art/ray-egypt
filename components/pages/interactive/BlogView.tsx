@@ -1,7 +1,6 @@
 import React from 'react';
 import { Calendar, Clock, User, ArrowLeft, Search, Tag, TrendingUp } from 'lucide-react';
-import SystemsHeader from '../marketplace/systems/SystemsHeader';
-import SystemsFooter from '../marketplace/systems/SystemsFooter';
+import PageLayout from '../../layout/PageLayout';
 
 interface BlogPost {
   id: string;
@@ -91,10 +90,8 @@ const BlogView: React.FC<BlogViewProps> = ({ onPageNavigation }) => {
 
   if (selectedPost) {
     return (
-      <div className="min-h-screen bg-gray-50">
-        <SystemsHeader />
-        
-        <main className="py-12">
+      <PageLayout onPageNavigation={onPageNavigation}>
+        <div className="py-12">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <button
               onClick={() => setSelectedPost(null)}
@@ -146,18 +143,14 @@ const BlogView: React.FC<BlogViewProps> = ({ onPageNavigation }) => {
               </div>
             </article>
           </div>
-        </main>
-
-        <SystemsFooter onPageNavigation={onPageNavigation} />
-      </div>
+        </div>
+      </PageLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <SystemsHeader />
-      
-      <main className="py-12">
+    <PageLayout onPageNavigation={onPageNavigation}>
+      <div className="py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-12">
@@ -252,10 +245,8 @@ const BlogView: React.FC<BlogViewProps> = ({ onPageNavigation }) => {
             </div>
           )}
         </div>
-      </main>
-
-      <SystemsFooter onPageNavigation={onPageNavigation} />
-    </div>
+      </div>
+    </PageLayout>
   );
 };
 

@@ -6,13 +6,13 @@ interface AuthModalProps {
   isOpen: boolean;
   onClose: () => void;
   initialMode?: 'login' | 'signup';
-  initialType?: 'customer' | 'admin';
+  initialType?: 'customer' | 'merchant' | 'admin';
   onAdminLogin?: () => void;
 }
 
 const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMode = 'login', initialType = 'customer', onAdminLogin }) => {
   const [mode, setMode] = useState<'login' | 'signup'>(initialMode);
-  const [isAdmin, setIsAdmin] = useState(initialType === 'admin');
+  const [authType, setAuthType] = useState<'customer' | 'merchant' | 'admin'>(initialType);
   const [isLoading, setIsLoading] = useState(false);
   const [clickCount, setClickCount] = useState(0);
   const [showAdminPanel, setShowAdminPanel] = useState(false);
@@ -25,6 +25,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMode = 'l
     
     // بعد 5 نقرات، اظهر لوحة Admin
     if (newCount >= 5) {
+      setAuthType('admin');
       setShowAdminPanel(true);
       setClickCount(0);
     }
@@ -52,6 +53,10 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMode = 'l
         
         // Check for admin credentials
         if (email === 'ADMIN' && password === '1234') {
+          // Create mock token for admin
+          const mockToken = 'mock-admin-token-' + Date.now();
+          localStorage.setItem('token', mockToken);
+          
           // Call the admin login callback
           onAdminLogin?.();
           onClose();
@@ -76,6 +81,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMode = 'l
           className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" 
           onClick={() => {
             setShowAdminPanel(false);
+            setAuthType('customer');
             setClickCount(0);
           }}
         ></div>
@@ -86,6 +92,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose, initialMode = 'l
           <button 
             onClick={() => {
               setShowAdminPanel(false);
+              setAuthType('customer');
               setClickCount(0);
             }}
             className="absolute top-4 left-4 p-2 bg-gray-800 rounded-full hover:bg-gray-700 transition text-gray-300"

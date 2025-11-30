@@ -2,16 +2,21 @@
 import React, { useState, useEffect } from 'react';
 import Marketplace from './components/Marketplace';
 import Dashboard from './components/Dashboard';
-import FAQView from './components/pages/FAQView';
-import BlogView from './components/pages/BlogView';
-import HelpView from './components/pages/HelpView';
-import PrivacyPolicyView from './components/pages/PrivacyPolicyView';
-import CareersView from './components/pages/CareersView';
+import DashboardNew from './components/dashboard/Dashboard';
+import Reports from './components/reports/Reports';
+import Navigation from './components/layout/Navigation';
+import RayEgyptSystem from './components/ray-egypt/RayEgyptSystem';
+import FAQView from './components/pages/interactive/FAQView';
+import BlogView from './components/pages/interactive/BlogView';
+import HelpView from './components/pages/interactive/HelpView';
+import PrivacyPolicyView from './components/pages/static/PrivacyPolicyView';
+import CareersView from './components/pages/interactive/CareersView';
 import RestaurantView from './components/pages/systems/RestaurantView';
 import { ViewState } from './types';
 import { BusinessType } from './components/dashboard/config';
 import { ThemeProvider } from './components/common/ThemeContext';
 import { RAY_DESIGN_SYSTEM, rayUtils } from './components/common/DesignSystem';
+import apiClient from './lib/api-client';
 
 const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -35,6 +40,12 @@ const App: React.FC = () => {
 
   const handlePageNavigation = (view: ViewState) => {
     setCurrentView(view);
+  };
+
+  const handleRayEgyptNavigation = (view: string) => {
+    if (view === 'RAY_EGYPT') {
+      setCurrentView(ViewState.RAY_EGYPT);
+    }
   };
 
   // Handle admin login
@@ -81,7 +92,7 @@ const App: React.FC = () => {
         <Marketplace 
           onMerchantClick={handleMerchantEntry} 
           onAdminLogin={handleAdminLogin}
-          onPageNavigation={handlePageNavigation}
+          onPageNavigation={handleRayEgyptNavigation}
         />
       )}
       {currentView === ViewState.DASHBOARD && (
@@ -94,38 +105,39 @@ const App: React.FC = () => {
           }} 
         />
       )}
-      {currentView === ViewState.FAQ && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.BLOG && <BlogView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.HELP && <HelpView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.PRIVACY_POLICY && <PrivacyPolicyView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.TERMS && <PrivacyPolicyView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.USAGE_POLICY && <PrivacyPolicyView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.CAREERS && <CareersView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.PARTNERS && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.DEVELOPMENT && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.JOIN_TEAM && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.TRAINING && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.MARKET && <Marketplace onMerchantClick={handleMerchantEntry} onAdminLogin={handleAdminLogin} onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.REFUND_POLICY && <FAQView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.FAQ && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.BLOG && <BlogView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.HELP && <HelpView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.PRIVACY_POLICY && <PrivacyPolicyView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.TERMS && <PrivacyPolicyView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.USAGE_POLICY && <PrivacyPolicyView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.CAREERS && <CareersView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.PARTNERS && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.DEVELOPMENT && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.JOIN_TEAM && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.TRAINING && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.MARKET && <Marketplace onMerchantClick={handleMerchantEntry} onAdminLogin={handleAdminLogin} onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.REFUND_POLICY && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
       {/* System Views */}
-      {currentView === ViewState.RESTAURANT && <RestaurantView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.RETAIL && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.CLOTHING && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.POS_SYSTEM && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.INVENTORY && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.LOGISTICS && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.MOBILE_LAUNDRY && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.HOME_SERVICES && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.DRY_CLEANING && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.DELIVERY && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.MAINTENANCE && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.CLEANING && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.SUBSCRIPTIONS && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.SALON && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.NURSERY && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.ACADEMY && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.LEGAL && <FAQView onPageNavigation={handlePageNavigation} />}
-      {currentView === ViewState.RESORTS && <FAQView onPageNavigation={handlePageNavigation} />}
+      {currentView === ViewState.RESTAURANT && <RestaurantView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.RETAIL && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.CLOTHING && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.POS_SYSTEM && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.INVENTORY && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.LOGISTICS && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.MOBILE_LAUNDRY && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.HOME_SERVICES && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.DRY_CLEANING && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.DELIVERY && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.MAINTENANCE && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.CLEANING && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.SUBSCRIPTIONS && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.SALON && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.NURSERY && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.ACADEMY && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.LEGAL && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.RESORTS && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
+      {currentView === ViewState.RAY_EGYPT && <RayEgyptSystem />}
     </ThemeProvider>
   );
 };

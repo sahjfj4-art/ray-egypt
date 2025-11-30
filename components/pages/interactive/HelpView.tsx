@@ -1,31 +1,9 @@
 import React from 'react';
 import { Book, Video, FileText, Download, MessageCircle, Phone, Mail, Search, ExternalLink, HeadphonesIcon } from 'lucide-react';
-import SystemsHeader from '../marketplace/systems/SystemsHeader';
-import SystemsFooter from '../marketplace/systems/SystemsFooter';
+import PageLayout from '../../layout/PageLayout';
+import { HelpCategory, HelpArticle, BasePageProps } from '../../shared/types';
 
-interface HelpCategory {
-  id: string;
-  title: string;
-  icon: React.ElementType;
-  description: string;
-  articles: number;
-  color: string;
-}
-
-interface HelpArticle {
-  id: string;
-  title: string;
-  category: string;
-  excerpt: string;
-  difficulty: 'مبتدئ' | 'متوسط' | 'متقدم';
-  readTime: string;
-  hasVideo: boolean;
-  hasDownload: boolean;
-}
-
-interface HelpViewProps {
-  onPageNavigation?: (view: any) => void;
-}
+interface HelpViewProps extends BasePageProps {}
 
 const HelpView: React.FC<HelpViewProps> = ({ onPageNavigation }) => {
   const [selectedCategory, setSelectedCategory] = React.useState<string>('all');
@@ -118,10 +96,8 @@ const HelpView: React.FC<HelpViewProps> = ({ onPageNavigation }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <SystemsHeader />
-      
-      <main className="py-12">
+    <PageLayout onPageNavigation={onPageNavigation}>
+      <div className="py-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-12">
@@ -278,10 +254,8 @@ const HelpView: React.FC<HelpViewProps> = ({ onPageNavigation }) => {
             </div>
           )}
         </div>
-      </main>
-
-      <SystemsFooter onPageNavigation={onPageNavigation} />
-    </div>
+      </div>
+    </PageLayout>
   );
 };
 

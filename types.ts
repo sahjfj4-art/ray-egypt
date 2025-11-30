@@ -67,5 +67,6 @@ export enum ViewState {
   NURSERY = 'NURSERY',
   ACADEMY = 'ACADEMY',
   LEGAL = 'LEGAL',
-  RESORTS = 'RESORTS'
+  RESORTS = 'RESORTS',
+  RAY_EGYPT = 'RAY_EGYPT'
 }

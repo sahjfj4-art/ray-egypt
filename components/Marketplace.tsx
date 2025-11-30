@@ -40,9 +40,10 @@ import LegalView from './marketplace/views/static/LegalView';
 interface MarketplaceProps {
   onMerchantClick?: (type?: string) => void;
   onAdminLogin?: () => void;
+  onPageNavigation?: (view: string) => void;
 }
 
-const Marketplace: React.FC<MarketplaceProps> = ({ onMerchantClick, onAdminLogin }) => {
+const Marketplace: React.FC<MarketplaceProps> = ({ onMerchantClick, onAdminLogin, onPageNavigation }) => {
   // Navigation States
   const [activeSystem, setActiveSystem] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -66,6 +67,10 @@ const Marketplace: React.FC<MarketplaceProps> = ({ onMerchantClick, onAdminLogin
     } else if (authType === 'merchant') {
       onMerchantClick?.();
     }
+  };
+
+  const handleRayEgyptSystem = () => {
+    onPageNavigation?.('RAY_EGYPT');
   };
 
   const handleSystemSelect = (systemId: string) => {
@@ -215,6 +220,7 @@ const Marketplace: React.FC<MarketplaceProps> = ({ onMerchantClick, onAdminLogin
         onCategorySelect={handleCategorySelect}
         onNavigate={handleNavigate}
         onAuth={() => handleAuthOpen('login', 'admin')}
+        onRayEgyptSystem={handleRayEgyptSystem}
       />
 
       {currentView !== 'home' ? (

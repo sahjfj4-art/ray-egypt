@@ -1,0 +1,462 @@
+// Ray Egypt Bootstrap Main SCSS File
+
+// Import Variables
+@import 'variables';
+
+// Import Bootstrap
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+
+// Override Bootstrap Variables with Ray Egypt Variables
+$theme-colors: (
+  "primary":    $ray-primary,
+  "secondary":  $ray-secondary,
+  "success":    $ray-success,
+  "info":       $ray-info,
+  "warning":    $ray-warning,
+  "danger":     $ray-danger,
+  "light":      $ray-light,
+  "dark":       $ray-dark,
+  // Ray Egypt Custom Colors
+  "ray-yellow": $ray-yellow,
+  "ray-orange": $ray-orange,
+  "ray-blue":   $ray-blue,
+  "ray-green":  $ray-green,
+  "ray-red":    $ray-red,
+  "ray-purple": $ray-purple,
+  "ray-pink":   $ray-pink,
+  "ray-teal":   $ray-teal,
+  "ray-cyan":   $ray-cyan
+);
+
+// Define utilities variable for Bootstrap
+$utilities: ();
+
+// Override Typography
+$font-family-sans-serif: $ray-font-family;
+$font-size-base: $ray-font-size-base;
+$line-height-base: $ray-line-height-normal;
+
+// Override Spacing
+$spacer: $ray-spacing-4;
+$spacers: (
+  0: $ray-spacing-0,
+  1: $ray-spacing-1,
+  2: $ray-spacing-2,
+  3: $ray-spacing-3,
+  4: $ray-spacing-4,
+  5: $ray-spacing-5,
+  6: $ray-spacing-6,
+  8: $ray-spacing-8,
+  10: $ray-spacing-10,
+  12: $ray-spacing-12
+);
+
+// Override Borders
+$border-width: 1px;
+$border-color: $ray-input-border-color;
+$border-radius: $ray-border-radius;
+$border-radius-lg: $ray-border-radius-lg;
+$border-radius-sm: $ray-border-radius-sm;
+
+// Override Shadows
+$box-shadow: $ray-shadow;
+$box-shadow-sm: $ray-shadow-sm;
+$box-shadow-lg: $ray-shadow-lg;
+
+// Override Transitions
+$transition-base: $ray-transition-all;
+
+// Import Bootstrap Components
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+@import "bootstrap/scss/images";
+@import "bootstrap/scss/containers";
+@import "bootstrap/scss/grid";
+@import "bootstrap/scss/tables";
+@import "bootstrap/scss/forms";
+@import "bootstrap/scss/buttons";
+@import "bootstrap/scss/transitions";
+@import "bootstrap/scss/dropdown";
+@import "bootstrap/scss/button-group";
+@import "bootstrap/scss/nav";
+@import "bootstrap/scss/navbar";
+@import "bootstrap/scss/card";
+@import "bootstrap/scss/accordion";
+@import "bootstrap/scss/alert";
+@import "bootstrap/scss/modal";
+@import "bootstrap/scss/tooltip";
+@import "bootstrap/scss/popover";
+@import "bootstrap/scss/carousel";
+@import "bootstrap/scss/spinners";
+@import "bootstrap/scss/offcanvas";
+@import "bootstrap/scss/placeholders";
+@import "bootstrap/scss/helpers";
+@import "bootstrap/scss/utilities";
+@import "bootstrap/scss/utilities/api";
+
+// Import Ray Egypt Custom Components
+@import 'components';
+
+// Import Ray Egypt Utilities
+@import 'utilities';
+
+// Global Styles
+body {
+  font-family: $ray-font-family;
+  font-size: $ray-font-size-base;
+  line-height: $ray-line-height-normal;
+  color: $ray-input-color;
+  background-color: #f8f9fa;
+}
+
+// RTL Support
+[dir="rtl"] {
+  text-align: right;
+  
+  .text-start {
+    text-align: right !important;
+  }
+  
+  .text-end {
+    text-align: left !important;
+  }
+  
+  .float-start {
+    float: right !important;
+  }
+  
+  .float-end {
+    float: left !important;
+  }
+  
+  .ms-* {
+    margin-left: 0 !important;
+    margin-right: var(--bs-spacing) !important;
+  }
+  
+  .me-* {
+    margin-right: 0 !important;
+    margin-left: var(--bs-spacing) !important;
+  }
+  
+  .ps-* {
+    padding-left: 0 !important;
+    padding-right: var(--bs-spacing) !important;
+  }
+  
+  .pe-* {
+    padding-right: 0 !important;
+    padding-left: var(--bs-spacing) !important;
+  }
+}
+
+// Dark Mode Support
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #ffffff;
+  }
+  
+  .bg-light {
+    background-color: #1e1e1e !important;
+    color: #ffffff;
+  }
+  
+  .bg-white {
+    background-color: #2d2d2d !important;
+    color: #ffffff;
+  }
+  
+  .text-dark {
+    color: #ffffff !important;
+  }
+  
+  .text-muted {
+    color: #b0b0b0 !important;
+  }
+  
+  .card {
+    background-color: #2d2d2d;
+    border-color: #404040;
+    color: #ffffff;
+  }
+  
+  .modal-content {
+    background-color: #2d2d2d;
+    color: #ffffff;
+  }
+  
+  .dropdown-menu {
+    background-color: #2d2d2d;
+    border-color: #404040;
+    color: #ffffff;
+    
+    .dropdown-item {
+      color: #ffffff;
+      
+      &:hover {
+        background-color: #404040;
+      }
+    }
+  }
+}
+
+// Print Styles
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+  
+  body {
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+  
+  .card {
+    border: 1px solid #000;
+    box-shadow: none;
+    page-break-inside: avoid;
+  }
+  
+  .table {
+    page-break-inside: avoid;
+  }
+}
+
+// Accessibility
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Focus Styles
+.btn:focus,
+.form-control:focus,
+.form-select:focus {
+  outline: 2px solid $ray-primary;
+  outline-offset: 2px;
+}
+
+// High Contrast Mode
+@media (prefers-contrast: high) {
+  .btn {
+    border: 2px solid;
+  }
+  
+  .card {
+    border: 2px solid;
+  }
+  
+  .form-control {
+    border: 2px solid;
+  }
+}
+
+// Reduced Motion
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+// Loading States
+.loading {
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    animation: loading-shine 1.5s infinite;
+  }
+}
+
+@keyframes loading-shine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+// Error States
+.error {
+  border-color: $ray-danger !important;
+  box-shadow: 0 0 0 0.25rem rgba($ray-danger, 0.25) !important;
+}
+
+// Success States
+.success {
+  border-color: $ray-success !important;
+  box-shadow: 0 0 0 0.25rem rgba($ray-success, 0.25) !important;
+}
+
+// Warning States
+.warning {
+  border-color: $ray-warning !important;
+  box-shadow: 0 0 0 0.25rem rgba($ray-warning, 0.25) !important;
+}
+
+// Custom Scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $ray-primary;
+  border-radius: 4px;
+  
+  &:hover {
+    background: darken($ray-primary, 10%);
+  }
+}
+
+// Firefox Scrollbar
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $ray-primary #f1f1f1;
+}
+
+// Selection Color
+::selection {
+  background-color: rgba($ray-primary, 0.2);
+  color: $ray-dark;
+}
+
+::-moz-selection {
+  background-color: rgba($ray-primary, 0.2);
+  color: $ray-dark;
+}
+
+// Ray Egypt Specific Styles
+.ray-brand {
+  color: $ray-yellow !important;
+}
+
+.ray-brand-bg {
+  background: $ray-gradient-brand !important;
+  color: $ray-dark !important;
+}
+
+.ray-section {
+  padding: $ray-spacing-16 0;
+}
+
+.ray-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $ray-spacing-4;
+}
+
+.ray-hero {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, $ray-primary 0%, $ray-blue 100%);
+  color: white;
+  text-align: center;
+  
+  h1 {
+    font-size: $ray-font-size-5xl;
+    font-weight: $ray-font-weight-bold;
+    margin-bottom: $ray-spacing-6;
+  }
+  
+  p {
+    font-size: $ray-font-size-xl;
+    margin-bottom: $ray-spacing-8;
+    opacity: 0.9;
+  }
+}
+
+.ray-features {
+  .feature-card {
+    text-align: center;
+    padding: $ray-spacing-8;
+    border-radius: $ray-border-radius-xl;
+    transition: $ray-transition-all;
+    
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: $ray-shadow-xl;
+    }
+    
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto $ray-spacing-4;
+      background: $ray-gradient-brand;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $ray-dark;
+      font-size: $ray-font-size-2xl;
+    }
+    
+    h3 {
+      font-size: $ray-font-size-xl;
+      font-weight: $ray-font-weight-semibold;
+      margin-bottom: $ray-spacing-4;
+    }
+    
+    p {
+      color: $ray-secondary;
+      line-height: $ray-line-height-relaxed;
+    }
+  }
+}
+
+.ray-stats {
+  background: $ray-gradient-brand;
+  color: $ray-dark;
+  padding: $ray-spacing-12 0;
+  
+  .stat-item {
+    text-align: center;
+    
+    .stat-number {
+      font-size: $ray-font-size-4xl;
+      font-weight: $ray-font-weight-bold;
+      margin-bottom: $ray-spacing-2;
+    }
+    
+    .stat-label {
+      font-size: $ray-font-size-lg;
+      font-weight: $ray-font-weight-medium;
+    }
+  }
+}

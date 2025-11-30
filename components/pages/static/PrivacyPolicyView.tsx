@@ -1,7 +1,6 @@
 import React from 'react';
 import { Shield, Eye, Lock, Database, UserCheck, AlertCircle } from 'lucide-react';
-import SystemsHeader from '../marketplace/systems/SystemsHeader';
-import SystemsFooter from '../marketplace/systems/SystemsFooter';
+import PageLayout from '../../layout/PageLayout';
 
 interface PrivacyPolicyViewProps {
   onPageNavigation?: (view: any) => void;
@@ -9,10 +8,8 @@ interface PrivacyPolicyViewProps {
 
 const PrivacyPolicyView: React.FC<PrivacyPolicyViewProps> = ({ onPageNavigation }) => {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <SystemsHeader />
-      
-      <main className="py-12">
+    <PageLayout onPageNavigation={onPageNavigation}>
+      <div className="py-12">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-12">
@@ -251,10 +248,8 @@ const PrivacyPolicyView: React.FC<PrivacyPolicyViewProps> = ({ onPageNavigation 
             </section>
           </div>
         </div>
-      </main>
-
-      <SystemsFooter onPageNavigation={onPageNavigation} />
-    </div>
+      </div>
+    </PageLayout>
   );
 };
 

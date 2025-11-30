@@ -14,9 +14,10 @@ interface HeaderProps {
   onCategorySelect: (categoryId: string) => void;
   onNavigate: (view: string) => void;
   onAuth: () => void;
+  onRayEgyptSystem?: () => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ onMerchantClick, goHome, activeSystem, onCategorySelect, onNavigate, onAuth }) => {
+const Header: React.FC<HeaderProps> = ({ onMerchantClick, goHome, activeSystem, onCategorySelect, onNavigate, onAuth, onRayEgyptSystem }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
@@ -90,6 +91,17 @@ const Header: React.FC<HeaderProps> = ({ onMerchantClick, goHome, activeSystem, 
 
             {/* Actions */}
             <div className="flex items-center gap-1.5 md:gap-3 shrink-0">
+               {/* Ray Egypt System */}
+               {onRayEgyptSystem && (
+                 <button 
+                   onClick={onRayEgyptSystem}
+                   className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-ray-blue to-blue-600 text-white text-sm font-bold rounded-lg hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-lg"
+                 >
+                   <span className="text-xs">🏢</span>
+                   <span className="hidden md:inline">Ray Egypt</span>
+                 </button>
+               )}
+               
                {/* Theme Toggle */}
                <button 
                  onClick={toggleTheme}

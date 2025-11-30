@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Client Test - Ray Egypt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .success { color: #28a745; }
+        .error { color: #dc3545; }
+        .info { color: #17a2b8; }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #0056b3; }
+        pre {
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+        .loading { color: #6c757d; }
+    </style>
+</head>
+<body>
+    <h1>🚀 Ray Egypt API Client Test</h1>
+    
+    <div class="container">
+        <h2>🔐 Authentication Test</h2>
+        <button onclick="testLogin()">Test Login</button>
+        <button onclick="testProfile()">Test Profile</button>
+        <button onclick="testLogout()">Test Logout</button>
+        <div id="auth-results"></div>
+    </div>
+
+    <div class="container">
+        <h2>🏢 Companies Test</h2>
+        <button onclick="testGetCompanies()">Get Companies</button>
+        <button onclick="testGetIndustries()">Get Industries</button>
+        <div id="companies-results"></div>
+    </div>
+
+    <div class="container">
+        <h2>👥 Customers Test</h2>
+        <button onclick="testGetCustomers()">Get Customers</button>
+        <button onclick="testCreateCustomer()">Create Customer</button>
+        <button onclick="testCustomerStats()">Customer Stats</button>
+        <div id="customers-results"></div>
+    </div>
+
+    <div class="container">
+        <h2>📦 Products Test</h2>
+        <button onclick="testGetProducts()">Get Products</button>
+        <button onclick="testCreateProduct()">Create Product</button>
+        <button onclick="testProductStats()">Product Stats</button>
+        <div id="products-results"></div>
+    </div>
+
+    <div class="container">
+        <h2>🧾 Invoices Test</h2>
+        <button onclick="testGetInvoices()">Get Invoices</button>
+        <button onclick="testCreateInvoice()">Create Invoice</button>
+        <button onclick="testInvoiceStats()">Invoice Stats</button>
+        <div id="invoices-results"></div>
+    </div>
+
+    <div class="container">
+        <h2>📊 Dashboard Test</h2>
+        <button onclick="testDashboard()">Get Dashboard Stats</button>
+        <div id="dashboard-results"></div>
+    </div>
+
+    <script type="module">
+        // Import the API client
+        import apiClient from './lib/api-client.js';
+
+        // Helper function to display results
+        function displayResults(elementId, result, isError = false) {
+            const element = document.getElementById(elementId);
+            const className = isError ? 'error' : 'success';
+            element.innerHTML = `
+                <div class="${className}">
+                    <h3>${isError ? '❌ Error' : '✅ Success'}</h3>
+                    <pre>${JSON.stringify(result, null, 2)}</pre>
+                </div>
+            `;
+        }
+
+        function displayLoading(elementId) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = '<div class="loading">🔄 Loading...</div>';
+        }
+
+        // Authentication tests
+        window.testLogin = async function() {
+            displayLoading('auth-results');
+            try {
+                const result = await apiClient.login({
+                    username: 'admin',
+                    password: '123456'
+                });
+                displayResults('auth-results', result);
+            } catch (error) {
+                displayResults('auth-results', { error: error.message }, true);
+            }
+        };
+
+        window.testProfile = async function() {
+            displayLoading('auth-results');
+            try {
+                const result = await apiClient.getProfile();
+                displayResults('auth-results', result);
+            } catch (error) {
+                displayResults('auth-results', { error: error.message }, true);
+            }
+        };
+
+        window.testLogout = async function() {
+            displayLoading('auth-results');
+            try {
+                apiClient.logout();
+                displayResults('auth-results', { message: 'Logged out successfully' });
+            } catch (error) {
+                displayResults('auth-results', { error: error.message }, true);
+            }
+        };
+
+        // Companies tests
+        window.testGetCompanies = async function() {
+            displayLoading('companies-results');
+            try {
+                const result = await apiClient.getCompanies();
+                displayResults('companies-results', result);
+            } catch (error) {
+                displayResults('companies-results', { error: error.message }, true);
+            }
+        };
+
+        window.testGetIndustries = async function() {
+            displayLoading('companies-results');
+            try {
+                const result = await apiClient.getIndustries();
+                displayResults('companies-results', result);
+            } catch (error) {
+                displayResults('companies-results', { error: error.message }, true);
+            }
+        };
+
+        // Customers tests
+        window.testGetCustomers = async function() {
+            displayLoading('customers-results');
+            try {
+                const result = await apiClient.getCustomers();
+                displayResults('customers-results', result);
+            } catch (error) {
+                displayResults('customers-results', { error: error.message }, true);
+            }
+        };
+
+        window.testCreateCustomer = async function() {
+            displayLoading('customers-results');
+            try {
+                const result = await apiClient.createCustomer({
+                    name: 'Test Customer ' + Date.now(),
+                    email: 'test' + Date.now() + '@example.com',
+                    phone: '01234567890',
+                    address: 'Test Address',
+                    customer_type: 'individual'
+                });
+                displayResults('customers-results', result);
+            } catch (error) {
+                displayResults('customers-results', { error: error.message }, true);
+            }
+        };
+
+        window.testCustomerStats = async function() {
+            displayLoading('customers-results');
+            try {
+                const result = await apiClient.getCustomerStats();
+                displayResults('customers-results', result);
+            } catch (error) {
+                displayResults('customers-results', { error: error.message }, true);
+            }
+        };
+
+        // Products tests
+        window.testGetProducts = async function() {
+            displayLoading('products-results');
+            try {
+                const result = await apiClient.getProducts();
+                displayResults('products-results', result);
+            } catch (error) {
+                displayResults('products-results', { error: error.message }, true);
+            }
+        };
+
+        window.testCreateProduct = async function() {
+            displayLoading('products-results');
+            try {
+                const result = await apiClient.createProduct({
+                    name: 'Test Product ' + Date.now(),
+                    sku: 'TEST-' + Date.now(),
+                    description: 'Test product description',
+                    price: 100.00,
+                    cost: 80.00,
+                    stock_quantity: 50,
+                    category: 'Test Category'
+                });
+                displayResults('products-results', result);
+            } catch (error) {
+                displayResults('products-results', { error: error.message }, true);
+            }
+        };
+
+        window.testProductStats = async function() {
+            displayLoading('products-results');
+            try {
+                const result = await apiClient.getProductStats();
+                displayResults('products-results', result);
+            } catch (error) {
+                displayResults('products-results', { error: error.message }, true);
+            }
+        };
+
+        // Invoices tests
+        window.testGetInvoices = async function() {
+            displayLoading('invoices-results');
+            try {
+                const result = await apiClient.getInvoices();
+                displayResults('invoices-results', result);
+            } catch (error) {
+                displayResults('invoices-results', { error: error.message }, true);
+            }
+        };
+
+        window.testCreateInvoice = async function() {
+            displayLoading('invoices-results');
+            try {
+                const result = await apiClient.createInvoice({
+                    customer_id: 1,
+                    company_id: 1,
+                    invoice_date: '2025-11-30',
+                    due_date: '2025-12-15',
+                    items: [
+                        {
+                            product_id: 1,
+                            description: 'Test Item',
+                            quantity: 1,
+                            unit_price: 100.00,
+                            discount_percent: 0
+                        }
+                    ]
+                });
+                displayResults('invoices-results', result);
+            } catch (error) {
+                displayResults('invoices-results', { error: error.message }, true);
+            }
+        };
+
+        window.testInvoiceStats = async function() {
+            displayLoading('invoices-results');
+            try {
+                const result = await apiClient.getInvoiceStats();
+                displayResults('invoices-results', result);
+            } catch (error) {
+                displayResults('invoices-results', { error: error.message }, true);
+            }
+        };
+
+        // Dashboard test
+        window.testDashboard = async function() {
+            displayLoading('dashboard-results');
+            try {
+                const result = await apiClient.getDashboardStats();
+                displayResults('dashboard-results', result);
+            } catch (error) {
+                displayResults('dashboard-results', { error: error.message }, true);
+            }
+        };
+
+        // Auto-login on page load
+        window.addEventListener('load', async () => {
+            console.log('🚀 API Client Test Page Loaded');
+            console.log('📍 Backend API: http://localhost:5000/api');
+            console.log('🌐 Frontend: http://localhost:3003');
+        });
+    </script>
+</body>
+</html>

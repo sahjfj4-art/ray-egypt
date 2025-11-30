@@ -12,14 +12,18 @@
   "dependencies": {
     "@google/genai": "^1.30.0",
     "@supabase/supabase-js": "^2.84.0",
+    "@types/bootstrap": "^5.2.10",
     "body-parser": "^1.20.2",
+    "bootstrap": "^5.3.8",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "lucide-react": "^0.554.0",
     "react": "^19.2.0",
+    "react-bootstrap": "^2.10.10",
     "react-dom": "^19.2.0",
-    "recharts": "^3.4.1"
+    "recharts": "^3.4.1",
+    "sass": "^1.94.2"
   },
   "devDependencies": {
     "@types/node": "^22.14.0",

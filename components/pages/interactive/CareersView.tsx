@@ -1,10 +1,9 @@
 import React from 'react';
 import { ArrowRight, Users, Target, Award, MapPin, Clock } from 'lucide-react';
-import { ViewState } from '../../types';
+import PageLayout from '../../layout/PageLayout';
+import { BasePageProps } from '../../shared/types';
 
-interface CareersViewProps {
-  onPageNavigation: (view: ViewState) => void;
-}
+interface CareersViewProps extends BasePageProps {}
 
 const CareersView: React.FC<CareersViewProps> = ({ onPageNavigation }) => {
   const opportunities = [
@@ -43,7 +42,7 @@ const CareersView: React.FC<CareersViewProps> = ({ onPageNavigation }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <PageLayout onPageNavigation={onPageNavigation}>
       {/* Hero Section */}
       <div className="bg-gradient-to-r from-blue-600 to-blue-800 dark:from-blue-900 dark:to-blue-700 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -120,7 +119,7 @@ const CareersView: React.FC<CareersViewProps> = ({ onPageNavigation }) => {
               إرسال السيرة الذاتية
             </button>
             <button 
-              onClick={() => onPageNavigation(ViewState.HELP)}
+              onClick={() => onPageNavigation('help')}
               className="bg-white dark:bg-gray-800 text-blue-600 border-2 border-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 dark:hover:bg-gray-700 transition"
             >
               تواصل معنا
@@ -128,7 +127,7 @@ const CareersView: React.FC<CareersViewProps> = ({ onPageNavigation }) => {
           </div>
         </div>
       </div>
-    </div>
+    </PageLayout>
   );
 };
 
