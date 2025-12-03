@@ -33,6 +33,43 @@ const App: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
+
+  // Developer Access: Keyboard shortcut to open Ray Egypt System
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      // Ctrl+Shift+R or Ctrl+Shift+E to open Ray Egypt System
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'R' || e.key === 'r' || e.key === 'E' || e.key === 'e')) {
+        e.preventDefault();
+        setCurrentView(ViewState.RAY_EGYPT);
+        console.log('🚀 Ray Egypt System opened via keyboard shortcut');
+      }
+    };
+
+
+    window.addEventListener('keydown', handleKeyPress);
+    return () => window.removeEventListener('keydown', handleKeyPress);
+  }, []);
+
+
+  // Developer Access: Console command
+  useEffect(() => {
+    // @ts-ignore - Adding to window for developer access
+    window.openRayEgypt = () => {
+      setCurrentView(ViewState.RAY_EGYPT);
+      console.log('🚀 Ray Egypt System opened via console command');
+      return 'Ray Egypt System opened!';
+    };
+    
+    console.log('%c🔧 Developer Tools', 'color: #3b82f6; font-weight: bold; font-size: 14px;');
+    console.log('%cType openRayEgypt() in console to access Ray Egypt System', 'color: #6b7280; font-size: 12px;');
+    console.log('%cOr press Ctrl+Shift+R (or Ctrl+Shift+E) to open it', 'color: #6b7280; font-size: 12px;');
+    
+    return () => {
+      // @ts-ignore
+      delete window.openRayEgypt;
+    };
+  }, []);
+
   const handleMerchantEntry = (type: string = 'restaurant', admin: boolean = false) => {
     setSelectedBusinessType(type as BusinessType);
     setIsAdmin(admin);

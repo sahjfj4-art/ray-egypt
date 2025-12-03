@@ -11,6 +11,7 @@ import AllSystemsShowcase from './marketplace/systems/AllSystemsShowcase';
 import MerchantRegisterView from './marketplace/views/MerchantRegisterView';
 import { systemsData } from './marketplace/data';
 
+
 // Listings
 import RestaurantListing from './marketplace/listings/RestaurantListing';
 import RealEstateListing from './marketplace/listings/RealEstateListing';
@@ -19,6 +20,7 @@ import ShoppingListing from './marketplace/listings/ShoppingListing';
 import ServiceListing from './marketplace/listings/ServiceListing';
 import HealthBeautyListing from './marketplace/listings/HealthBeautyListing';
 import EventListing from './marketplace/listings/EventListing';
+
 
 // Views
 import MerchantPublicView from './marketplace/views/MerchantPublicView';
@@ -31,17 +33,20 @@ import SearchResultsView from './marketplace/views/SearchResultsView';
 import OrderTrackingView from './marketplace/views/OrderTrackingView';
 import AuthModal from './common/AuthModal';
 
+
 // Static Views
 import AboutView from './marketplace/views/static/AboutView';
 import ContactView from './marketplace/views/static/ContactView';
 import HelpCenterView from './marketplace/views/static/HelpCenterView';
 import LegalView from './marketplace/views/static/LegalView';
 
+
 interface MarketplaceProps {
   onMerchantClick?: (type?: string) => void;
   onAdminLogin?: () => void;
   onPageNavigation?: (view: string) => void;
 }
+
 
 const Marketplace: React.FC<MarketplaceProps> = ({ onMerchantClick, onAdminLogin, onPageNavigation }) => {
   // Navigation States
@@ -54,11 +59,13 @@ const Marketplace: React.FC<MarketplaceProps> = ({ onMerchantClick, onAdminLogin
   const [authMode, setAuthMode] = useState<'login' | 'signup'>('login');
   const [authType, setAuthType] = useState<'customer' | 'merchant' | 'admin'>('customer');
 
+
   const handleAuthOpen = (mode: 'login' | 'signup' = 'login', type: 'customer' | 'merchant' | 'admin' = 'customer') => {
     setAuthMode(mode);
     setAuthType(type);
     setIsAuthOpen(true);
   };
+
 
   const handleAuthSuccess = () => {
     setIsAuthOpen(false);
@@ -69,9 +76,6 @@ const Marketplace: React.FC<MarketplaceProps> = ({ onMerchantClick, onAdminLogin
     }
   };
 
-  const handleRayEgyptSystem = () => {
-    onPageNavigation?.('RAY_EGYPT');
-  };
 
   const handleSystemSelect = (systemId: string) => {
     setActiveSystem(systemId);
@@ -81,6 +85,7 @@ const Marketplace: React.FC<MarketplaceProps> = ({ onMerchantClick, onAdminLogin
     window.scrollTo(0, 0);
   };
 
+
   const handleCategorySelect = (categoryId: string) => {
     setSelectedCategory(categoryId);
     setActiveSystem(null);
@@ -89,10 +94,12 @@ const Marketplace: React.FC<MarketplaceProps> = ({ onMerchantClick, onAdminLogin
     window.scrollTo(0, 0);
   };
 
+
   const handleMerchantSelect = (merchantData: any) => {
     setSelectedMerchant(merchantData);
     window.scrollTo(0, 0);
   };
+
 
   const goHome = () => {
     setActiveSystem(null);
@@ -102,6 +109,7 @@ const Marketplace: React.FC<MarketplaceProps> = ({ onMerchantClick, onAdminLogin
     setViewParams(null);
     window.scrollTo(0, 0);
   };
+
 
   const handleNavigate = (view: string, params?: any) => {
     setCurrentView(view);
@@ -115,6 +123,7 @@ const Marketplace: React.FC<MarketplaceProps> = ({ onMerchantClick, onAdminLogin
     }
     window.scrollTo(0, 0);
   };
+
 
   const renderListing = () => {
     switch (selectedCategory) {
@@ -140,6 +149,7 @@ const Marketplace: React.FC<MarketplaceProps> = ({ onMerchantClick, onAdminLogin
         return <RestaurantListing onMerchantSelect={handleMerchantSelect} title="المحلات والخدمات" />;
     }
   };
+
 
   const renderCurrentView = () => {
     switch(currentView) {
@@ -172,6 +182,7 @@ const Marketplace: React.FC<MarketplaceProps> = ({ onMerchantClick, onAdminLogin
     }
   };
 
+
   if (selectedMerchant) {
     return (
       <div className="min-h-screen bg-white dark:bg-gray-900 font-sans text-ray-black dark:text-white dir-rtl">
@@ -184,6 +195,7 @@ const Marketplace: React.FC<MarketplaceProps> = ({ onMerchantClick, onAdminLogin
     );
   }
 
+
   // If registering, show full screen without header/footer distraction (optional, but keeping layout for consistency)
   if (currentView === 'merchant-register') {
      return (
@@ -192,6 +204,7 @@ const Marketplace: React.FC<MarketplaceProps> = ({ onMerchantClick, onAdminLogin
         </div>
      );
   }
+
 
   // For system views, use separate layout without marketing header/footer
   if (currentView === 'all-systems' || currentView === 'system-landing') {
@@ -210,6 +223,7 @@ const Marketplace: React.FC<MarketplaceProps> = ({ onMerchantClick, onAdminLogin
     );
   }
 
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 font-sans text-ray-black dark:text-white dir-rtl transition-colors">
       
@@ -220,8 +234,8 @@ const Marketplace: React.FC<MarketplaceProps> = ({ onMerchantClick, onAdminLogin
         onCategorySelect={handleCategorySelect}
         onNavigate={handleNavigate}
         onAuth={() => handleAuthOpen('login', 'admin')}
-        onRayEgyptSystem={handleRayEgyptSystem}
       />
+
 
       {currentView !== 'home' ? (
         renderCurrentView()
@@ -234,10 +248,12 @@ const Marketplace: React.FC<MarketplaceProps> = ({ onMerchantClick, onAdminLogin
         </>
       )}
 
+
       <Footer 
         handleSystemSelect={handleSystemSelect} 
         onNavigate={handleNavigate}
       />
+
 
       <GeminiAssistant context="customer" />
       <AuthModal 
@@ -250,5 +266,6 @@ const Marketplace: React.FC<MarketplaceProps> = ({ onMerchantClick, onAdminLogin
     </div>
   );
 };
+
 
 export default Marketplace;
