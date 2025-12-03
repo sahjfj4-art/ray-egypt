@@ -32,6 +32,40 @@ export interface MerchantStat {
   icon: any;
 }
 
+export interface BasePageProps {
+  onPageNavigation?: (view: string) => void;
+}
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+  category: string;
+}
+
+export interface HelpCategory {
+  id: string;
+  name: string;
+  title: string;
+  description: string;
+  icon: any;
+  color: string;
+  articles: HelpArticle[];
+}
+
+export interface HelpArticle {
+  id: string;
+  title: string;
+  content: string;
+  excerpt: string;
+  category: string;
+  videoUrl?: string;
+  downloadUrl?: string;
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
+  readTime: number;
+  hasVideo: boolean;
+  hasDownload: boolean;
+}
+
 export enum ViewState {
   MARKETPLACE = 'MARKETPLACE',
   DASHBOARD = 'DASHBOARD',

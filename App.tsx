@@ -134,14 +134,7 @@ const App: React.FC = () => {
           />
         )}
         {currentView === ViewState.DASHBOARD && (
-          <DashboardNew 
-            initialType={selectedBusinessType} 
-            isAdmin={isAdmin}
-            onLogout={() => {
-              setCurrentView(ViewState.MARKETPLACE);
-              setIsAdmin(false);
-            }} 
-          />
+          <DashboardNew />
         )}
         {currentView === ViewState.FAQ && <FAQView onPageNavigation={handleRayEgyptNavigation} />}
         {currentView === ViewState.BLOG && <BlogView onPageNavigation={handleRayEgyptNavigation} />}

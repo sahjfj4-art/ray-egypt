@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowRight, Users, Target, Award, MapPin, Clock } from 'lucide-react';
 import PageLayout from '../../layout/PageLayout';
-import { BasePageProps } from '../../shared/types';
+import { BasePageProps } from '../../../types';
 
 interface CareersViewProps extends BasePageProps {}
 

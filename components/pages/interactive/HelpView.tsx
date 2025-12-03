@@ -1,7 +1,7 @@
 import React from 'react';
 import { Book, Video, FileText, Download, MessageCircle, Phone, Mail, Search, ExternalLink, HeadphonesIcon } from 'lucide-react';
 import PageLayout from '../../layout/PageLayout';
-import { HelpCategory, HelpArticle, BasePageProps } from '../../shared/types';
+import { HelpCategory, HelpArticle, BasePageProps } from '../../../types';
 
 interface HelpViewProps extends BasePageProps {}
 
@@ -12,35 +12,39 @@ const HelpView: React.FC<HelpViewProps> = ({ onPageNavigation }) => {
   const helpCategories: HelpCategory[] = [
     {
       id: 'getting-started',
+      name: 'getting-started',
       title: 'البدء',
       icon: Book,
       description: 'دليل البدء السريع وإعداد حسابك',
-      articles: 12,
-      color: 'bg-blue-500'
+      color: 'bg-blue-500',
+      articles: []
     },
     {
       id: 'systems',
+      name: 'systems',
       title: 'الأنظمة',
       icon: Video,
       description: 'شرح جميع الأنظمة وكيفية استخدامها',
-      articles: 37,
-      color: 'bg-green-500'
+      color: 'bg-green-500',
+      articles: []
     },
     {
       id: 'billing',
+      name: 'billing',
       title: 'الفواتير والدفع',
       icon: FileText,
       description: 'كيفية إدارة الفواتير والاشتراكات',
-      articles: 8,
-      color: 'bg-purple-500'
+      color: 'bg-purple-500',
+      articles: []
     },
     {
       id: 'technical',
+      name: 'technical',
       title: 'دعم فني',
       icon: HeadphonesIcon,
       description: 'حل المشاكل التقنية والأسئلة الشائعة',
-      articles: 15,
-      color: 'bg-red-500'
+      color: 'bg-red-500',
+      articles: []
     }
   ];
 
@@ -50,8 +54,9 @@ const HelpView: React.FC<HelpViewProps> = ({ onPageNavigation }) => {
       title: 'كيف تنشئ حساب جديد في منصة راي؟',
       category: 'getting-started',
       excerpt: 'خطوات بسيطة لإنشاء حسابك الأول والبدء في استخدام المنصة',
-      difficulty: 'مبتدئ',
-      readTime: '3 دقائق',
+      content: 'محتوى مفصل حول كيفية إنشاء حساب جديد...',
+      difficulty: 'beginner',
+      readTime: 3,
       hasVideo: true,
       hasDownload: false
     },
@@ -60,8 +65,9 @@ const HelpView: React.FC<HelpViewProps> = ({ onPageNavigation }) => {
       title: 'إعداد نظام المطعم الخاص بك',
       category: 'systems',
       excerpt: 'دليل متكامل لإعداد نظام إدارة المطاعم من الألف إلى الياء',
-      difficulty: 'متوسط',
-      readTime: '10 دقائق',
+      content: 'محتوى مفصل حول إعداد نظام المطعم...',
+      difficulty: 'intermediate',
+      readTime: 10,
       hasVideo: true,
       hasDownload: true
     },
@@ -70,8 +76,9 @@ const HelpView: React.FC<HelpViewProps> = ({ onPageNavigation }) => {
       title: 'حل مشاكل تسجيل الدخول',
       category: 'technical',
       excerpt: 'المشاكل الشائعة في تسجيل الدخول وكيفية حلها',
-      difficulty: 'مبتدئ',
-      readTime: '2 دقيقة',
+      content: 'محتوى مفصل حول حل مشاكل تسجيل الدخول...',
+      difficulty: 'beginner',
+      readTime: 2,
       hasVideo: false,
       hasDownload: false
     }
@@ -192,7 +199,7 @@ const HelpView: React.FC<HelpViewProps> = ({ onPageNavigation }) => {
                     <h3 className="text-lg font-bold text-gray-900 mb-2">{category.title}</h3>
                     <p className="text-gray-600 mb-4">{category.description}</p>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-gray-500">{category.articles} مقال</span>
+                      <span className="text-sm text-gray-500">{category.articles.length} مقال</span>
                       <span className="text-yellow-500 hover:text-yellow-600">
                         استكشف →
                       </span>

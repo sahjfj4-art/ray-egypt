@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChevronDown, ChevronUp, HelpCircle, MessageCircle, Phone, Mail } from 'lucide-react';
 import PageLayout from '../../layout/PageLayout';
-import { FAQItem, BasePageProps } from '../../shared/types';
+import { FAQItem, BasePageProps } from '../../../types';
 
 interface FAQViewProps extends BasePageProps {}
 
