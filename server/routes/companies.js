@@ -40,13 +40,17 @@ router.get('/', authenticateToken, async (req, res) => {
       params.push(status);
     }
 
+    // Validate and sanitize pagination parameters
+    const safeLimit = Math.min(Math.max(parseInt(limit) || 10, 1), 100); // Max 100 per page
+    const safeOffset = Math.max(parseInt(offset) || 0, 0);
+
     const companiesQuery = `
       SELECT c.*, i.name as industry_name
       FROM companies c
       LEFT JOIN industries i ON c.industry_id = i.id
       ${whereClause}
       ORDER BY c.created_at DESC
-      LIMIT ${Number(limit)} OFFSET ${Number(offset)}
+      LIMIT ? OFFSET ?
     `;
 
     const countQuery = `
@@ -56,7 +60,7 @@ router.get('/', authenticateToken, async (req, res) => {
     `;
 
     const [companies, totalResult] = await Promise.all([
-      query(companiesQuery, params),
+      query(companiesQuery, [...params, safeLimit, safeOffset]),
       query(countQuery, params)
     ]);
 
@@ -64,9 +68,9 @@ router.get('/', authenticateToken, async (req, res) => {
       companies,
       pagination: {
         page: Number(page),
-        limit: Number(limit),
+        limit: safeLimit,
         total: totalResult[0].total,
-        pages: Math.ceil(totalResult[0].total / Number(limit))
+        pages: Math.ceil(totalResult[0].total / safeLimit)
       }
     });
   } catch (error) {

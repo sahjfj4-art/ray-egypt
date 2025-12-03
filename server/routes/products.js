@@ -40,13 +40,17 @@ router.get('/', authenticateToken, async (req, res) => {
       params.push(status);
     }
 
+    // Validate and sanitize pagination parameters
+    const safeLimit = Math.min(Math.max(parseInt(limit) || 10, 1), 100); // Max 100 per page
+    const safeOffset = Math.max(parseInt(offset) || 0, 0);
+
     const productsQuery = `
       SELECT p.*, u.full_name as created_by_name
       FROM products p
       LEFT JOIN users u ON p.created_by = u.id
       ${whereClause}
       ORDER BY p.created_at DESC
-      LIMIT ${Number(limit)} OFFSET ${Number(offset)}
+      LIMIT ? OFFSET ?
     `;
 
     const countQuery = `
@@ -56,7 +60,7 @@ router.get('/', authenticateToken, async (req, res) => {
     `;
 
     const [products, totalResult] = await Promise.all([
-      query(productsQuery, params),
+      query(productsQuery, [...params, safeLimit, safeOffset]),
       query(countQuery, params)
     ]);
 
@@ -64,9 +68,9 @@ router.get('/', authenticateToken, async (req, res) => {
       products,
       pagination: {
         page: Number(page),
-        limit: Number(limit),
+        limit: safeLimit,
         total: totalResult[0].total,
-        pages: Math.ceil(totalResult[0].total / Number(limit))
+        pages: Math.ceil(totalResult[0].total / safeLimit)
       }
     });
   } catch (error) {

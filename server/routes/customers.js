@@ -45,6 +45,10 @@ router.get('/', authenticateToken, async (req, res) => {
       params.push(company_id);
     }
 
+    // Validate and sanitize pagination parameters
+    const safeLimit = Math.min(Math.max(parseInt(limit) || 10, 1), 100); // Max 100 per page
+    const safeOffset = Math.max(parseInt(offset) || 0, 0);
+
     const customersQuery = `
       SELECT c.*, co.name as company_name, u.full_name as created_by_name
       FROM customers c
@@ -52,7 +56,7 @@ router.get('/', authenticateToken, async (req, res) => {
       LEFT JOIN users u ON c.created_by = u.id
       ${whereClause}
       ORDER BY c.created_at DESC
-      LIMIT ${Number(limit)} OFFSET ${Number(offset)}
+      LIMIT ? OFFSET ?
     `;
 
     const countQuery = `
@@ -62,7 +66,7 @@ router.get('/', authenticateToken, async (req, res) => {
     `;
 
     const [customers, totalResult] = await Promise.all([
-      query(customersQuery, params),
+      query(customersQuery, [...params, safeLimit, safeOffset]),
       query(countQuery, params)
     ]);
 
@@ -70,9 +74,9 @@ router.get('/', authenticateToken, async (req, res) => {
       customers,
       pagination: {
         page: parseInt(page),
-        limit: parseInt(limit),
+        limit: safeLimit,
         total: totalResult[0].total,
-        pages: Math.ceil(totalResult[0].total / limit)
+        pages: Math.ceil(totalResult[0].total / safeLimit)
       }
     });
   } catch (error) {
@@ -349,15 +353,16 @@ router.get('/stats/summary', authenticateToken, async (req, res) => {
   try {
     const { company_id } = req.query;
 
-    let whereClause = company_id ? 'WHERE company_id = ?' : '';
-    const params = company_id ? [company_id] : [];
+    // Build safe queries for statistics
+    const statsWhereClause = company_id ? 'WHERE company_id = ?' : '';
+    const statsParams = company_id ? [company_id] : [];
 
     const [totalCustomers, activeCustomers, inactiveCustomers, individualCustomers, companyCustomers] = await Promise.all([
-      query(`SELECT COUNT(*) as count FROM customers ${whereClause}`, params),
-      query(`SELECT COUNT(*) as count FROM customers WHERE status = 'active' ${company_id ? 'AND company_id = ?' : ''}`, company_id ? [company_id] : []),
-      query(`SELECT COUNT(*) as count FROM customers WHERE status = 'inactive' ${company_id ? 'AND company_id = ?' : ''}`, company_id ? [company_id] : []),
-      query(`SELECT COUNT(*) as count FROM customers WHERE customer_type = 'individual' ${company_id ? 'AND company_id = ?' : ''}`, company_id ? [company_id] : []),
-      query(`SELECT COUNT(*) as count FROM customers WHERE customer_type = 'company' ${company_id ? 'AND company_id = ?' : ''}`, company_id ? [company_id] : [])
+      query(`SELECT COUNT(*) as count FROM customers ${statsWhereClause}`, statsParams),
+      query(`SELECT COUNT(*) as count FROM customers WHERE status = ? ${statsWhereClause}`, ['active', ...statsParams]),
+      query(`SELECT COUNT(*) as count FROM customers WHERE status = ? ${statsWhereClause}`, ['inactive', ...statsParams]),
+      query(`SELECT COUNT(*) as count FROM customers WHERE customer_type = ? ${statsWhereClause}`, ['individual', ...statsParams]),
+      query(`SELECT COUNT(*) as count FROM customers WHERE customer_type = ? ${statsWhereClause}`, ['company', ...statsParams])
     ]);
 
     res.json({

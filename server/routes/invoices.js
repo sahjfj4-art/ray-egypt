@@ -74,6 +74,10 @@ router.get('/', authenticateToken, async (req, res) => {
       params.push(date_to);
     }
 
+    // Validate and sanitize pagination parameters
+    const safeLimit = Math.min(Math.max(parseInt(limit) || 10, 1), 100); // Max 100 per page
+    const safeOffset = Math.max(parseInt(offset) || 0, 0);
+
     const invoicesQuery = `
       SELECT i.*, c.name as customer_name, co.name as company_name, u.full_name as created_by_name
       FROM invoices i
@@ -82,7 +86,7 @@ router.get('/', authenticateToken, async (req, res) => {
       LEFT JOIN users u ON i.created_by = u.id
       ${whereClause}
       ORDER BY i.created_at DESC
-      LIMIT ${Number(limit)} OFFSET ${Number(offset)}
+      LIMIT ? OFFSET ?
     `;
 
     const countQuery = `
@@ -94,7 +98,7 @@ router.get('/', authenticateToken, async (req, res) => {
     `;
 
     const [invoices, totalResult] = await Promise.all([
-      query(invoicesQuery, params),
+      query(invoicesQuery, [...params, safeLimit, safeOffset]),
       query(countQuery, params)
     ]);
 
@@ -102,9 +106,9 @@ router.get('/', authenticateToken, async (req, res) => {
       invoices,
       pagination: {
         page: parseInt(page),
-        limit: parseInt(limit),
+        limit: safeLimit,
         total: totalResult[0].total,
-        pages: Math.ceil(totalResult[0].total / limit)
+        pages: Math.ceil(totalResult[0].total / safeLimit)
       }
     });
   } catch (error) {
@@ -552,6 +556,10 @@ router.get('/stats/summary', authenticateToken, async (req, res) => {
       params.push(date_to);
     }
 
+    // Build safe queries for statistics
+    const statsWhereClause = company_id ? 'WHERE company_id = ?' : '';
+    const statsParams = company_id ? [company_id] : [];
+
     const [
       totalInvoices,
       draftInvoices,
@@ -562,12 +570,12 @@ router.get('/stats/summary', authenticateToken, async (req, res) => {
       unpaidRevenue
     ] = await Promise.all([
       query(`SELECT COUNT(*) as count FROM invoices ${whereClause}`, params),
-      query(`SELECT COUNT(*) as count FROM invoices WHERE status = 'draft' ${company_id ? 'AND company_id = ?' : ''}`, company_id ? [company_id] : []),
-      query(`SELECT COUNT(*) as count FROM invoices WHERE status = 'sent' ${company_id ? 'AND company_id = ?' : ''}`, company_id ? [company_id] : []),
-      query(`SELECT COUNT(*) as count FROM invoices WHERE status = 'paid' ${company_id ? 'AND company_id = ?' : ''}`, company_id ? [company_id] : []),
-      query(`SELECT COUNT(*) as count FROM invoices WHERE status = 'overdue' ${company_id ? 'AND company_id = ?' : ''}`, company_id ? [company_id] : []),
-      query(`SELECT SUM(total_amount) as total FROM invoices WHERE status = 'paid' ${company_id ? 'AND company_id = ?' : ''}`, company_id ? [company_id] : []),
-      query(`SELECT SUM(total_amount) as total FROM invoices WHERE status IN ('sent', 'overdue') ${company_id ? 'AND company_id = ?' : ''}`, company_id ? [company_id] : [])
+      query(`SELECT COUNT(*) as count FROM invoices WHERE status = ? ${statsWhereClause}`, ['draft', ...statsParams]),
+      query(`SELECT COUNT(*) as count FROM invoices WHERE status = ? ${statsWhereClause}`, ['sent', ...statsParams]),
+      query(`SELECT COUNT(*) as count FROM invoices WHERE status = ? ${statsWhereClause}`, ['paid', ...statsParams]),
+      query(`SELECT COUNT(*) as count FROM invoices WHERE status = ? ${statsWhereClause}`, ['overdue', ...statsParams]),
+      query(`SELECT SUM(total_amount) as total FROM invoices WHERE status = ? ${statsWhereClause}`, ['paid', ...statsParams]),
+      query(`SELECT SUM(total_amount) as total FROM invoices WHERE status IN (?, ?) ${statsWhereClause}`, ['sent', 'overdue', ...statsParams])
     ]);
 
     res.json({
