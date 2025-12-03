@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import Marketplace from './components/Marketplace';
-import Dashboard from './components/Dashboard';
 import DashboardNew from './components/dashboard/Dashboard';
 import Reports from './components/reports/Reports';
 import Navigation from './components/layout/Navigation';
@@ -135,7 +134,7 @@ const App: React.FC = () => {
           />
         )}
         {currentView === ViewState.DASHBOARD && (
-          <Dashboard 
+          <DashboardNew 
             initialType={selectedBusinessType} 
             isAdmin={isAdmin}
             onLogout={() => {
