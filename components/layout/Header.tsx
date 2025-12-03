@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Search, MapPin, Heart, ShoppingCart, Bell, Menu, X,
-  Briefcase, Store, ChevronDown, User, Moon, Sun
+  Briefcase, Store, ChevronDown, User, Moon, Sun, Monitor
 } from 'lucide-react';
 import { allCategories } from '../marketplace/data';
 import { useTheme } from '../common/ThemeContext';
