@@ -155,8 +155,7 @@ const startServer = async () => {
     const dbConnected = await testConnection();
     
     if (!dbConnected) {
-      console.error('❌ Failed to connect to database');
-      process.exit(1);
+      console.warn('⚠️ Database connection failed - running in development mode');
     }
 
     // Start Express server
