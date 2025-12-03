@@ -124,10 +124,12 @@ const Footer: React.FC<FooterProps> = ({ handleSystemSelect, onNavigate }) => {
                        // @ts-ignore
                        window.openRayEgypt();
                      }
+                   } else if (e.detail === 1) { // Single click - redirect to dashboard
+                     onNavigate && onNavigate('all-systems');
                    }
                  }}
-                 className="cursor-default hover:text-gray-500 dark:hover:text-gray-300 transition-colors"
-                 title="Triple click for developer access"
+                 className="cursor-pointer hover:text-gray-500 dark:hover:text-gray-300 transition-colors"
+                 title="Click for dashboard • Triple click for developer access"
                >
                  v2.5.0 (Beta)
                </button>
